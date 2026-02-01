@@ -5,10 +5,87 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../lib/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
+  // url      = env("DATABASE_URL")
+}
+
+
+
+model User{
+  id Int @id @default(autoincrement())
+  ClerkId String @unique
+  email String @unique
+  firstName String?
+  lastName String?
+  role UserRole @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  //Relations
+  orders Order[]
+  @@map("users")
+
+ 
+}
+ enum UserRole{
+    USER
+    ADMIN
+    SUPER_ADMIN
+  }
+
+model Order{
+  id Int @id @default(autoincrement())
+  userId Int
+  status OrderStatus @default(PENDING)
+  total Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  //Relations
+  user User @relation(fields: [userId], references: [id])
+  orderItems OrderItem[]
+  @@map("order")
+}
+enum OrderStatus{
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+model OrderItem{
+  id Int @id @default(autoincrement())
+  orderId Int
+  productId Int
+  quantity Int
+  price Float
+
+  //Relations
+  order Order @relation(fields: [orderId],references: [id],onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+  @@map("order-items")
+}
+
+model Product{
+  id Int @id @default(autoincrement())
+  title String
+  description String?
+  price Float
+  category String @default("groceries")
+  brand String?
+  stock Int
+  thumbnail String?
+  images String[]
+  createdAt DateTime @default(now())
+  updatetAt DateTime @updatedAt
+
+  //Relations
+  orderItems OrderItem[]
+  @@map("products")
 }

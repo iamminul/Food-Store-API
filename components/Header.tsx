@@ -1,5 +1,6 @@
-'use client'
+"use client";
 
+import { Cherry } from "lucide-react";
 import Link from "next/link";
 import {
   SignInButton,
@@ -11,63 +12,41 @@ import {
 
 import { Button } from "@/components/ui/button";
 
-type Props = {}
+type Props = {};
 
 const Header = (props: Props) => {
   return (
     //HEADER SECTION START
-    <header className="bg-white border-blue-400 sticky top-0 z-50 backdrop-blur px-8 py-8">
-      <div className="container flex justify-between items-center mx-auto">
-        <Link href="/">
-          <h1 className="font-bold text-xl">Food Store</h1>
-        </Link>
-
-        <nav className="flex justify-between items-center space-x-4">
+    <header className="bg-red-500 border-b border-blue-400 min-h-20 backdrop-blur-md top-0 z-50 sticky ">
+      <div className="container max-w-6xl flex justify-between items-center mx-auto py-8">
+        <div className="flex justify-between items-center">
+          <Link href="/" className="flex items-center gap-2">
+            <Cherry className="w-6 h-6 text-yellow-500 hover:text-red-700 transition-colors"/> <h1 className="text-xl font-bold">Food Store</h1>
+          </Link>
+        </div>
+        <nav className="flex items-center justify-between gap-4">
           <Link
-            href="/"
-            className="font-bold text-muted-foreground hover:text-blue-600"
+            href={"/"}
+            className="text-white font-bold hover:text-yellow-500"
           >
             Home
           </Link>
           <Link
-            href="/about"
-            className="font-bold text-muted-foreground hover:text-blue-600"
+            href={"about"}
+            className="text-white font-bold hover:text-yellow-500"
           >
             About
           </Link>
           <Link
-            href="/contact"
-            className="font-bold text-muted-foreground hover:text-blue-600"
+            href={"/contact"}
+            className="text-white font-bold hover:text-yellow-500"
           >
             Contact
           </Link>
-      {/* signin and signup button */}
-      <div className="flex items-center gap-4">
-        <SignedOut>
-          <SignInButton>
-            <Button variant='ghost' className=" text-black">
-              Sign In
-            </Button>
-            </SignInButton>
-
-          <SignUpButton>
-            <Button variant={'default'} className=" text-white">
-              Sign Up
-            </Button>
-          </SignUpButton>
-
-        </SignedOut>
-        {/* Show the user button when the user is signed in */}
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
-      </div>
         </nav>
       </div>
-
     </header>
-    //HEADER SECTION END
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

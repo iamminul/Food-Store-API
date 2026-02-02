@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 // for get order request
@@ -6,7 +7,7 @@ export async function GET(
   { params }: { params: { id: string } },
 ) {
   try {
-    // await requireAdmin()
+    await requireAdmin()
     const order = await prisma.order.findUnique({
       where: { id: Number.parseInt(params.id) },
       include: {
@@ -48,12 +49,11 @@ export async function PUT(
   { params }: { params: { id: string } },
 ) {
   try {
-    // await requireAdmin()
+    await requireAdmin()
     const body = await request.json()
     const {status} = body
 
 
-    
     const order = await prisma.order.update({
       where: { id: Number.parseInt(params.id) },
       data:{status},
@@ -95,7 +95,7 @@ export async function DELETE(
   { params }: { params: { id: string } },
 ) {
   try {
-    // await requireAdmin()
+    await requireAdmin()
     await prisma.order.delete({
       where: { id: Number.parseInt(params.id) },
     });

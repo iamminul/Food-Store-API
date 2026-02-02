@@ -30,3 +30,13 @@ export async function requireAuth(){
     return user
 
 }
+
+export async function requireAdmin() {
+  const user = await requireAuth()
+
+  if (user.role !== "admin") {
+    throw new Error("forbidden: admin access required")
+  }
+
+  return user
+}

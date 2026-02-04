@@ -1,6 +1,8 @@
-import React from 'react'
+'use client'
+
+import { useState } from 'react'
 import { Button } from './ui/button'
-import {  Badge, Edit, MoreHorizontal, Plus, Trash2 } from 'lucide-react'
+import {  Edit, MoreHorizontal, Plus, Trash2 } from 'lucide-react'
 import { DataTable } from './data-table'
 import { ProductDialog } from './product-dialog'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -9,6 +11,7 @@ import { CellContext, ColumnDef } from '@tanstack/react-table'
 import { Dropdown } from 'react-day-picker'
 import { DropdownMenu } from '@radix-ui/react-dropdown-menu'
 import { DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu'
+import { Badge } from './ui/badge'
 
 
 export interface Product{
@@ -26,9 +29,9 @@ export interface Product{
 }
 
 export function ProductTable () {
-    const [isDialogOpen, setIsDialogOpen] = React.useState(false)
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
     // const [products, setProducts] = React.useState<Product[]>([])
-    const [editingProduct, setEditingProduct] =React.useState<Product | null>(null)
+    const [editingProduct, setEditingProduct] =useState<Product | null>(null)
 
     const queryClient = useQueryClient()
 

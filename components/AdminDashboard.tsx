@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Package, ShoppingCart } from "lucide-react";
+import { ProductTable } from "./ProductTable";
 
 type Props = {};
 
@@ -44,8 +45,8 @@ export default function AdminDashboard(props: Props) {
               </CardDescription>
             </CardHeader>
             <CardContent className="text-muted-foreground text-sm">
-                {/* <ProductTable/> */}
-               product table
+                <ProductTable/>
+               
             </CardContent>
           </Card>
         </TabsContent>
